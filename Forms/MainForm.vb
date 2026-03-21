@@ -464,10 +464,9 @@ Partial Class MainForm
         cboSyncType.SelectedIndex = If(syncIdx >= 0, syncIdx, 0)
 
         ' NTP Servers
-        txtNtpServers.Text = RegistryHelper.GetString(RegistryHelper.ParamsPath, "NtpServer", "")
+        Dim serverStr = RegistryHelper.GetString(RegistryHelper.ParamsPath, "NtpServer", "")
 
         ' Flags (parse from first server entry)
-        Dim serverStr = txtNtpServers.Text
         Dim flags As Integer = 0
         Dim firstServer = serverStr.Split(" "c)(0)
         Dim commaIdx = firstServer.LastIndexOf(",")
@@ -482,6 +481,19 @@ Partial Class MainForm
         chkFlag4.Checked = (flags And &H4) <> 0
         chkFlag1.Checked = (flags And &H1) <> 0
         UpdateCombinedFlag()
+
+        ' Strip flags from server addresses for display
+        Dim parts = serverStr.Split({" "c}, StringSplitOptions.RemoveEmptyEntries)
+        Dim stripped As New System.Text.StringBuilder()
+        For Each part In parts
+            Dim ci = part.LastIndexOf(",")
+            If ci >= 0 Then
+                stripped.Append(part.Substring(0, ci) & " ")
+            Else
+                stripped.Append(part & " ")
+            End If
+        Next
+        txtNtpServers.Text = stripped.ToString().Trim()
 
         ' Polling
         nudUpdateInterval.Value = RegistryHelper.GetDWord(RegistryHelper.ConfigPath, "UpdateInterval", 100)
@@ -523,15 +535,14 @@ Partial Class MainForm
                 If chkFlag8.Checked Then combined = combined Or &H8
                 If chkFlag4.Checked Then combined = combined Or &H4
                 If chkFlag1.Checked Then combined = combined Or &H1
-                ' Append flag to first server if no flag already set
+                Dim flagStr = ",0x" & combined.ToString("X")
+                ' Strip any existing flags and always use the checkbox flag
                 Dim parts = servers.Split({" "c}, StringSplitOptions.RemoveEmptyEntries)
                 Dim rebuilt As New System.Text.StringBuilder()
                 For Each part In parts
-                    If part.Contains(",") Then
-                        rebuilt.Append(part & " ")
-                    Else
-                        rebuilt.Append(part & ",0x" & combined.ToString("X") & " ")
-                    End If
+                    Dim ci = part.LastIndexOf(",")
+                    Dim addr = If(ci >= 0, part.Substring(0, ci), part)
+                    rebuilt.Append(addr & flagStr & " ")
                 Next
                 RegistryHelper.SetString(RegistryHelper.ParamsPath, "NtpServer", rebuilt.ToString().Trim())
             End If
@@ -561,10 +572,11 @@ Partial Class MainForm
         If AskResetConfirm() Then
             chkClientEnabled.Checked = True
             cboSyncType.SelectedIndex = 0
-            txtNtpServers.Text = "time.windows.com,0x9"
+            txtNtpServers.Text = "time.windows.com"
             chkFlag8.Checked = True
             chkFlag4.Checked = False
-            chkFlag1.Checked = False
+            chkFlag1.Checked = True
+            UpdateCombinedFlag()
             nudUpdateInterval.Value = 100
             nudMinPoll.Value = 10
             nudMaxPoll.Value = 10
