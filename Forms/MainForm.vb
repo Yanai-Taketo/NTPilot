@@ -362,6 +362,17 @@ Partial Class MainForm
             End Select
             lblServiceStatusVal.Text = "  ● " & statusText
             lblServiceStatusVal.ForeColor = statusColor
+            ' Update modern status badge
+            badgeServiceStatus.StatusText = statusText
+            badgeServiceStatus.StatusColor = statusColor
+            Select Case svcStatus
+                Case ServiceControllerStatus.Running
+                    badgeServiceStatus.BgTintColor = ThemeManager.StatusRunningBgColor
+                Case ServiceControllerStatus.Stopped, ServiceControllerStatus.StopPending
+                    badgeServiceStatus.BgTintColor = ThemeManager.StatusStoppedBgColor
+                Case Else
+                    badgeServiceStatus.BgTintColor = ThemeManager.StatusUnknownBgColor
+            End Select
 
             ' Info bar: always-visible NTP status summary
             lblInfoStatus.Text = "  ● " & statusText

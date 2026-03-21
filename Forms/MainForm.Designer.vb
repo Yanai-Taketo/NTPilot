@@ -37,6 +37,7 @@ Partial Class MainForm
     Private tblService As TableLayoutPanel
     Private lblServiceStatusLbl As Label
     Private lblServiceStatusVal As Label
+    Private badgeServiceStatus As StatusBadge
     Private flpServiceBtns As FlowLayoutPanel
     Private WithEvents btnStart As Button
     Private WithEvents btnStop As Button
@@ -410,7 +411,7 @@ Partial Class MainForm
         Me.pageStatus.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pageStatus.Location = New System.Drawing.Point(0, 0)
         Me.pageStatus.Name = "pageStatus"
-        Me.pageStatus.Padding = New System.Windows.Forms.Padding(16, 12, 16, 48)
+        Me.pageStatus.Padding = New System.Windows.Forms.Padding(32, 24, 32, 48)
         Me.pageStatus.Size = New System.Drawing.Size(1200, 688)
         Me.pageStatus.TabIndex = 0
         '
@@ -420,7 +421,7 @@ Partial Class MainForm
         Me.cardPeers.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardPeers.Location = New System.Drawing.Point(16, 528)
         Me.cardPeers.Name = "cardPeers"
-        Me.cardPeers.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardPeers.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardPeers.Size = New System.Drawing.Size(1142, 260)
         Me.cardPeers.TabIndex = 0
         Me.cardPeers.TabStop = False
@@ -445,7 +446,7 @@ Partial Class MainForm
         Me.dgvPeers.AllowUserToResizeRows = False
         Me.dgvPeers.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvPeers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.dgvPeers.ColumnHeadersHeight = 34
+        Me.dgvPeers.ColumnHeadersHeight = 38
         Me.dgvPeers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.PeerServer, Me.PeerState, Me.PeerStratum, Me.PeerOffset, Me.PeerRootDelay, Me.PeerRootDisp})
         Me.dgvPeers.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPeers.Location = New System.Drawing.Point(3, 3)
@@ -454,7 +455,7 @@ Partial Class MainForm
         Me.dgvPeers.ReadOnly = True
         Me.dgvPeers.RowHeadersVisible = False
         Me.dgvPeers.RowHeadersWidth = 62
-        Me.dgvPeers.RowTemplate.Height = 30
+        Me.dgvPeers.RowTemplate.Height = 36
         Me.dgvPeers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvPeers.Size = New System.Drawing.Size(1104, 205)
         Me.dgvPeers.TabIndex = 0
@@ -507,7 +508,7 @@ Partial Class MainForm
         Me.cardNtpStatus.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardNtpStatus.Location = New System.Drawing.Point(16, 188)
         Me.cardNtpStatus.Name = "cardNtpStatus"
-        Me.cardNtpStatus.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardNtpStatus.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardNtpStatus.Size = New System.Drawing.Size(1142, 340)
         Me.cardNtpStatus.TabIndex = 1
         Me.cardNtpStatus.TabStop = False
@@ -523,7 +524,7 @@ Partial Class MainForm
         Me.tblNtpStatus.Name = "tblNtpStatus"
         Me.tblNtpStatus.RowCount = 2
         Me.tblNtpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 236.0!))
-        Me.tblNtpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblNtpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblNtpStatus.Size = New System.Drawing.Size(1110, 291)
         Me.tblNtpStatus.TabIndex = 0
         '
@@ -534,7 +535,7 @@ Partial Class MainForm
         Me.dgvStatus.AllowUserToResizeRows = False
         Me.dgvStatus.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvStatus.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
-        Me.dgvStatus.ColumnHeadersHeight = 34
+        Me.dgvStatus.ColumnHeadersHeight = 38
         Me.dgvStatus.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Key, Me.Value})
         Me.dgvStatus.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvStatus.Location = New System.Drawing.Point(3, 3)
@@ -543,7 +544,7 @@ Partial Class MainForm
         Me.dgvStatus.ReadOnly = True
         Me.dgvStatus.RowHeadersVisible = False
         Me.dgvStatus.RowHeadersWidth = 62
-        Me.dgvStatus.RowTemplate.Height = 30
+        Me.dgvStatus.RowTemplate.Height = 36
         Me.dgvStatus.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvStatus.Size = New System.Drawing.Size(1104, 230)
         Me.dgvStatus.TabIndex = 0
@@ -580,9 +581,9 @@ Partial Class MainForm
         Me.btnSyncNow.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnSyncNow.Location = New System.Drawing.Point(0, 4)
         Me.btnSyncNow.Margin = New System.Windows.Forms.Padding(0, 4, 8, 0)
-        Me.btnSyncNow.MinimumSize = New System.Drawing.Size(100, 32)
+        Me.btnSyncNow.MinimumSize = New System.Drawing.Size(110, 36)
         Me.btnSyncNow.Name = "btnSyncNow"
-        Me.btnSyncNow.Size = New System.Drawing.Size(100, 32)
+        Me.btnSyncNow.Size = New System.Drawing.Size(110, 36)
         Me.btnSyncNow.TabIndex = 0
         '
         'btnRefreshStatus
@@ -591,9 +592,9 @@ Partial Class MainForm
         Me.btnRefreshStatus.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnRefreshStatus.Location = New System.Drawing.Point(108, 4)
         Me.btnRefreshStatus.Margin = New System.Windows.Forms.Padding(0, 4, 8, 0)
-        Me.btnRefreshStatus.MinimumSize = New System.Drawing.Size(80, 32)
+        Me.btnRefreshStatus.MinimumSize = New System.Drawing.Size(90, 36)
         Me.btnRefreshStatus.Name = "btnRefreshStatus"
-        Me.btnRefreshStatus.Size = New System.Drawing.Size(80, 32)
+        Me.btnRefreshStatus.Size = New System.Drawing.Size(90, 36)
         Me.btnRefreshStatus.TabIndex = 1
         '
         'cardService
@@ -602,7 +603,7 @@ Partial Class MainForm
         Me.cardService.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardService.Location = New System.Drawing.Point(16, 12)
         Me.cardService.Name = "cardService"
-        Me.cardService.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardService.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardService.Size = New System.Drawing.Size(1142, 176)
         Me.cardService.TabIndex = 2
         Me.cardService.TabStop = False
@@ -613,14 +614,15 @@ Partial Class MainForm
         Me.tblService.ColumnCount = 2
         Me.tblService.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tblService.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220.0!))
+        Me.badgeServiceStatus = New StatusBadge()
         Me.tblService.Controls.Add(Me.lblServiceStatusLbl, 0, 0)
-        Me.tblService.Controls.Add(Me.lblServiceStatusVal, 1, 0)
+        Me.tblService.Controls.Add(Me.badgeServiceStatus, 1, 0)
         Me.tblService.Controls.Add(Me.flpServiceBtns, 0, 1)
         Me.tblService.Dock = System.Windows.Forms.DockStyle.Top
         Me.tblService.Location = New System.Drawing.Point(16, 29)
         Me.tblService.Name = "tblService"
         Me.tblService.RowCount = 2
-        Me.tblService.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblService.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblService.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblService.Size = New System.Drawing.Size(1110, 84)
         Me.tblService.TabIndex = 0
@@ -640,9 +642,17 @@ Partial Class MainForm
         Me.lblServiceStatusVal.Font = New System.Drawing.Font("Segoe UI Semibold", 9.25!)
         Me.lblServiceStatusVal.Location = New System.Drawing.Point(893, 0)
         Me.lblServiceStatusVal.Name = "lblServiceStatusVal"
-        Me.lblServiceStatusVal.Size = New System.Drawing.Size(214, 40)
+        Me.lblServiceStatusVal.Size = New System.Drawing.Size(214, 44)
         Me.lblServiceStatusVal.TabIndex = 1
         Me.lblServiceStatusVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblServiceStatusVal.Visible = False
+        '
+        'badgeServiceStatus
+        '
+        Me.badgeServiceStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.badgeServiceStatus.Name = "badgeServiceStatus"
+        Me.badgeServiceStatus.Size = New System.Drawing.Size(214, 44)
+        Me.badgeServiceStatus.TabIndex = 10
         '
         'flpServiceBtns
         '
@@ -664,9 +674,9 @@ Partial Class MainForm
         Me.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnStart.Location = New System.Drawing.Point(0, 0)
         Me.btnStart.Margin = New System.Windows.Forms.Padding(0, 0, 8, 0)
-        Me.btnStart.MinimumSize = New System.Drawing.Size(80, 32)
+        Me.btnStart.MinimumSize = New System.Drawing.Size(90, 36)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(80, 32)
+        Me.btnStart.Size = New System.Drawing.Size(90, 36)
         Me.btnStart.TabIndex = 0
         '
         'btnStop
@@ -675,9 +685,9 @@ Partial Class MainForm
         Me.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnStop.Location = New System.Drawing.Point(88, 0)
         Me.btnStop.Margin = New System.Windows.Forms.Padding(0, 0, 8, 0)
-        Me.btnStop.MinimumSize = New System.Drawing.Size(80, 32)
+        Me.btnStop.MinimumSize = New System.Drawing.Size(90, 36)
         Me.btnStop.Name = "btnStop"
-        Me.btnStop.Size = New System.Drawing.Size(80, 32)
+        Me.btnStop.Size = New System.Drawing.Size(90, 36)
         Me.btnStop.TabIndex = 1
         '
         'btnRestart
@@ -686,9 +696,9 @@ Partial Class MainForm
         Me.btnRestart.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnRestart.Location = New System.Drawing.Point(176, 0)
         Me.btnRestart.Margin = New System.Windows.Forms.Padding(0, 0, 8, 0)
-        Me.btnRestart.MinimumSize = New System.Drawing.Size(80, 32)
+        Me.btnRestart.MinimumSize = New System.Drawing.Size(90, 36)
         Me.btnRestart.Name = "btnRestart"
-        Me.btnRestart.Size = New System.Drawing.Size(80, 32)
+        Me.btnRestart.Size = New System.Drawing.Size(90, 36)
         Me.btnRestart.TabIndex = 2
         '
         'pageClient
@@ -702,7 +712,7 @@ Partial Class MainForm
         Me.pageClient.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pageClient.Location = New System.Drawing.Point(0, 0)
         Me.pageClient.Name = "pageClient"
-        Me.pageClient.Padding = New System.Windows.Forms.Padding(16, 12, 16, 48)
+        Me.pageClient.Padding = New System.Windows.Forms.Padding(32, 24, 32, 48)
         Me.pageClient.Size = New System.Drawing.Size(1200, 688)
         Me.pageClient.TabIndex = 1
         '
@@ -724,9 +734,9 @@ Partial Class MainForm
         Me.btnApplyClient.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnApplyClient.Location = New System.Drawing.Point(0, 8)
         Me.btnApplyClient.Margin = New System.Windows.Forms.Padding(0, 8, 8, 0)
-        Me.btnApplyClient.MinimumSize = New System.Drawing.Size(90, 32)
+        Me.btnApplyClient.MinimumSize = New System.Drawing.Size(100, 36)
         Me.btnApplyClient.Name = "btnApplyClient"
-        Me.btnApplyClient.Size = New System.Drawing.Size(90, 32)
+        Me.btnApplyClient.Size = New System.Drawing.Size(100, 36)
         Me.btnApplyClient.TabIndex = 0
         '
         'btnResetClient
@@ -735,9 +745,9 @@ Partial Class MainForm
         Me.btnResetClient.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnResetClient.Location = New System.Drawing.Point(98, 8)
         Me.btnResetClient.Margin = New System.Windows.Forms.Padding(0, 8, 8, 0)
-        Me.btnResetClient.MinimumSize = New System.Drawing.Size(90, 32)
+        Me.btnResetClient.MinimumSize = New System.Drawing.Size(100, 36)
         Me.btnResetClient.Name = "btnResetClient"
-        Me.btnResetClient.Size = New System.Drawing.Size(90, 32)
+        Me.btnResetClient.Size = New System.Drawing.Size(100, 36)
         Me.btnResetClient.TabIndex = 1
         '
         'cardCrossSite
@@ -746,7 +756,7 @@ Partial Class MainForm
         Me.cardCrossSite.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardCrossSite.Location = New System.Drawing.Point(16, 730)
         Me.cardCrossSite.Name = "cardCrossSite"
-        Me.cardCrossSite.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardCrossSite.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardCrossSite.Size = New System.Drawing.Size(1142, 224)
         Me.cardCrossSite.TabIndex = 1
         Me.cardCrossSite.TabStop = False
@@ -766,9 +776,9 @@ Partial Class MainForm
         Me.tblCrossSite.Location = New System.Drawing.Point(16, 29)
         Me.tblCrossSite.Name = "tblCrossSite"
         Me.tblCrossSite.RowCount = 3
-        Me.tblCrossSite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblCrossSite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblCrossSite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblCrossSite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblCrossSite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblCrossSite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblCrossSite.Size = New System.Drawing.Size(1110, 120)
         Me.tblCrossSite.TabIndex = 0
         '
@@ -821,7 +831,7 @@ Partial Class MainForm
         Me.cardPolling.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardPolling.Location = New System.Drawing.Point(16, 506)
         Me.cardPolling.Name = "cardPolling"
-        Me.cardPolling.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardPolling.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardPolling.Size = New System.Drawing.Size(1142, 224)
         Me.cardPolling.TabIndex = 2
         Me.cardPolling.TabStop = False
@@ -842,9 +852,9 @@ Partial Class MainForm
         Me.tblPolling.Location = New System.Drawing.Point(16, 29)
         Me.tblPolling.Name = "tblPolling"
         Me.tblPolling.RowCount = 3
-        Me.tblPolling.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblPolling.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblPolling.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblPolling.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblPolling.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblPolling.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblPolling.Size = New System.Drawing.Size(1110, 120)
         Me.tblPolling.TabIndex = 0
         '
@@ -906,7 +916,7 @@ Partial Class MainForm
         Me.cardFlags.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardFlags.Location = New System.Drawing.Point(16, 236)
         Me.cardFlags.Name = "cardFlags"
-        Me.cardFlags.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardFlags.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardFlags.Size = New System.Drawing.Size(1142, 270)
         Me.cardFlags.TabIndex = 3
         Me.cardFlags.TabStop = False
@@ -926,10 +936,10 @@ Partial Class MainForm
         Me.tblFlags.Location = New System.Drawing.Point(16, 29)
         Me.tblFlags.Name = "tblFlags"
         Me.tblFlags.RowCount = 4
-        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblFlags.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblFlags.Size = New System.Drawing.Size(1110, 160)
         Me.tblFlags.TabIndex = 0
         '
@@ -985,7 +995,7 @@ Partial Class MainForm
         Me.cardClientBasic.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardClientBasic.Location = New System.Drawing.Point(16, 12)
         Me.cardClientBasic.Name = "cardClientBasic"
-        Me.cardClientBasic.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardClientBasic.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardClientBasic.Size = New System.Drawing.Size(1142, 224)
         Me.cardClientBasic.TabIndex = 4
         Me.cardClientBasic.TabStop = False
@@ -1005,9 +1015,9 @@ Partial Class MainForm
         Me.tblClientBasic.Location = New System.Drawing.Point(16, 29)
         Me.tblClientBasic.Name = "tblClientBasic"
         Me.tblClientBasic.RowCount = 3
-        Me.tblClientBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblClientBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblClientBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblClientBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblClientBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblClientBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblClientBasic.Size = New System.Drawing.Size(1110, 120)
         Me.tblClientBasic.TabIndex = 0
         '
@@ -1066,7 +1076,7 @@ Partial Class MainForm
         Me.pageServer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pageServer.Location = New System.Drawing.Point(0, 0)
         Me.pageServer.Name = "pageServer"
-        Me.pageServer.Padding = New System.Windows.Forms.Padding(16, 12, 16, 48)
+        Me.pageServer.Padding = New System.Windows.Forms.Padding(32, 24, 32, 48)
         Me.pageServer.Size = New System.Drawing.Size(1200, 688)
         Me.pageServer.TabIndex = 2
         '
@@ -1087,9 +1097,9 @@ Partial Class MainForm
         Me.btnApplyServer.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnApplyServer.Location = New System.Drawing.Point(0, 8)
         Me.btnApplyServer.Margin = New System.Windows.Forms.Padding(0, 8, 8, 0)
-        Me.btnApplyServer.MinimumSize = New System.Drawing.Size(90, 32)
+        Me.btnApplyServer.MinimumSize = New System.Drawing.Size(100, 36)
         Me.btnApplyServer.Name = "btnApplyServer"
-        Me.btnApplyServer.Size = New System.Drawing.Size(90, 32)
+        Me.btnApplyServer.Size = New System.Drawing.Size(100, 36)
         Me.btnApplyServer.TabIndex = 0
         '
         'btnResetServer
@@ -1098,9 +1108,9 @@ Partial Class MainForm
         Me.btnResetServer.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnResetServer.Location = New System.Drawing.Point(98, 8)
         Me.btnResetServer.Margin = New System.Windows.Forms.Padding(0, 8, 8, 0)
-        Me.btnResetServer.MinimumSize = New System.Drawing.Size(90, 32)
+        Me.btnResetServer.MinimumSize = New System.Drawing.Size(100, 36)
         Me.btnResetServer.Name = "btnResetServer"
-        Me.btnResetServer.Size = New System.Drawing.Size(90, 32)
+        Me.btnResetServer.Size = New System.Drawing.Size(100, 36)
         Me.btnResetServer.TabIndex = 1
         '
         'cardChain
@@ -1109,7 +1119,7 @@ Partial Class MainForm
         Me.cardChain.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardChain.Location = New System.Drawing.Point(16, 460)
         Me.cardChain.Name = "cardChain"
-        Me.cardChain.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardChain.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardChain.Size = New System.Drawing.Size(1168, 132)
         Me.cardChain.TabIndex = 1
         Me.cardChain.TabStop = False
@@ -1126,7 +1136,7 @@ Partial Class MainForm
         Me.tblChain.Location = New System.Drawing.Point(16, 29)
         Me.tblChain.Name = "tblChain"
         Me.tblChain.RowCount = 1
-        Me.tblChain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblChain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblChain.Size = New System.Drawing.Size(1136, 40)
         Me.tblChain.TabIndex = 0
         '
@@ -1154,7 +1164,7 @@ Partial Class MainForm
         Me.cardPhase.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardPhase.Location = New System.Drawing.Point(16, 236)
         Me.cardPhase.Name = "cardPhase"
-        Me.cardPhase.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardPhase.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardPhase.Size = New System.Drawing.Size(1168, 224)
         Me.cardPhase.TabIndex = 2
         Me.cardPhase.TabStop = False
@@ -1175,9 +1185,9 @@ Partial Class MainForm
         Me.tblPhase.Location = New System.Drawing.Point(16, 29)
         Me.tblPhase.Name = "tblPhase"
         Me.tblPhase.RowCount = 3
-        Me.tblPhase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblPhase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblPhase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblPhase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblPhase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblPhase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblPhase.Size = New System.Drawing.Size(1136, 120)
         Me.tblPhase.TabIndex = 0
         '
@@ -1241,7 +1251,7 @@ Partial Class MainForm
         Me.cardServerBasic.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardServerBasic.Location = New System.Drawing.Point(16, 12)
         Me.cardServerBasic.Name = "cardServerBasic"
-        Me.cardServerBasic.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardServerBasic.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardServerBasic.Size = New System.Drawing.Size(1168, 224)
         Me.cardServerBasic.TabIndex = 3
         Me.cardServerBasic.TabStop = False
@@ -1260,9 +1270,9 @@ Partial Class MainForm
         Me.tblServerBasic.Location = New System.Drawing.Point(16, 29)
         Me.tblServerBasic.Name = "tblServerBasic"
         Me.tblServerBasic.RowCount = 3
-        Me.tblServerBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblServerBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblServerBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblServerBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblServerBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblServerBasic.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblServerBasic.Size = New System.Drawing.Size(1136, 120)
         Me.tblServerBasic.TabIndex = 0
         '
@@ -1314,7 +1324,7 @@ Partial Class MainForm
         Me.pageAdvanced.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pageAdvanced.Location = New System.Drawing.Point(0, 0)
         Me.pageAdvanced.Name = "pageAdvanced"
-        Me.pageAdvanced.Padding = New System.Windows.Forms.Padding(16, 12, 16, 48)
+        Me.pageAdvanced.Padding = New System.Windows.Forms.Padding(32, 24, 32, 48)
         Me.pageAdvanced.Size = New System.Drawing.Size(1200, 688)
         Me.pageAdvanced.TabIndex = 3
         '
@@ -1335,9 +1345,9 @@ Partial Class MainForm
         Me.btnApplyAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnApplyAdvanced.Location = New System.Drawing.Point(0, 8)
         Me.btnApplyAdvanced.Margin = New System.Windows.Forms.Padding(0, 8, 8, 0)
-        Me.btnApplyAdvanced.MinimumSize = New System.Drawing.Size(90, 32)
+        Me.btnApplyAdvanced.MinimumSize = New System.Drawing.Size(100, 36)
         Me.btnApplyAdvanced.Name = "btnApplyAdvanced"
-        Me.btnApplyAdvanced.Size = New System.Drawing.Size(90, 32)
+        Me.btnApplyAdvanced.Size = New System.Drawing.Size(100, 36)
         Me.btnApplyAdvanced.TabIndex = 0
         '
         'btnResetAdvanced
@@ -1346,9 +1356,9 @@ Partial Class MainForm
         Me.btnResetAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnResetAdvanced.Location = New System.Drawing.Point(98, 8)
         Me.btnResetAdvanced.Margin = New System.Windows.Forms.Padding(0, 8, 8, 0)
-        Me.btnResetAdvanced.MinimumSize = New System.Drawing.Size(90, 32)
+        Me.btnResetAdvanced.MinimumSize = New System.Drawing.Size(100, 36)
         Me.btnResetAdvanced.Name = "btnResetAdvanced"
-        Me.btnResetAdvanced.Size = New System.Drawing.Size(90, 32)
+        Me.btnResetAdvanced.Size = New System.Drawing.Size(100, 36)
         Me.btnResetAdvanced.TabIndex = 1
         '
         'cardLogging
@@ -1357,7 +1367,7 @@ Partial Class MainForm
         Me.cardLogging.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardLogging.Location = New System.Drawing.Point(16, 684)
         Me.cardLogging.Name = "cardLogging"
-        Me.cardLogging.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardLogging.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardLogging.Size = New System.Drawing.Size(1142, 224)
         Me.cardLogging.TabIndex = 1
         Me.cardLogging.TabStop = False
@@ -1378,9 +1388,9 @@ Partial Class MainForm
         Me.tblLogging.Location = New System.Drawing.Point(16, 29)
         Me.tblLogging.Name = "tblLogging"
         Me.tblLogging.RowCount = 3
-        Me.tblLogging.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblLogging.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblLogging.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblLogging.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblLogging.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblLogging.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblLogging.Size = New System.Drawing.Size(1110, 120)
         Me.tblLogging.TabIndex = 0
         '
@@ -1461,7 +1471,7 @@ Partial Class MainForm
         Me.cardMisc.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardMisc.Location = New System.Drawing.Point(16, 506)
         Me.cardMisc.Name = "cardMisc"
-        Me.cardMisc.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardMisc.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardMisc.Size = New System.Drawing.Size(1142, 178)
         Me.cardMisc.TabIndex = 2
         Me.cardMisc.TabStop = False
@@ -1480,8 +1490,8 @@ Partial Class MainForm
         Me.tblMisc.Location = New System.Drawing.Point(16, 29)
         Me.tblMisc.Name = "tblMisc"
         Me.tblMisc.RowCount = 2
-        Me.tblMisc.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblMisc.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblMisc.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblMisc.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblMisc.Size = New System.Drawing.Size(1110, 80)
         Me.tblMisc.TabIndex = 0
         '
@@ -1527,7 +1537,7 @@ Partial Class MainForm
         Me.cardSpike.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardSpike.Location = New System.Drawing.Point(16, 282)
         Me.cardSpike.Name = "cardSpike"
-        Me.cardSpike.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardSpike.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardSpike.Size = New System.Drawing.Size(1142, 224)
         Me.cardSpike.TabIndex = 3
         Me.cardSpike.TabStop = False
@@ -1548,9 +1558,9 @@ Partial Class MainForm
         Me.tblSpike.Location = New System.Drawing.Point(16, 29)
         Me.tblSpike.Name = "tblSpike"
         Me.tblSpike.RowCount = 3
-        Me.tblSpike.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblSpike.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblSpike.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblSpike.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblSpike.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblSpike.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblSpike.Size = New System.Drawing.Size(1110, 120)
         Me.tblSpike.TabIndex = 0
         '
@@ -1614,7 +1624,7 @@ Partial Class MainForm
         Me.cardTimeCorrection.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardTimeCorrection.Location = New System.Drawing.Point(16, 12)
         Me.cardTimeCorrection.Name = "cardTimeCorrection"
-        Me.cardTimeCorrection.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardTimeCorrection.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardTimeCorrection.Size = New System.Drawing.Size(1142, 270)
         Me.cardTimeCorrection.TabIndex = 4
         Me.cardTimeCorrection.TabStop = False
@@ -1637,10 +1647,10 @@ Partial Class MainForm
         Me.tblTimeCorr.Location = New System.Drawing.Point(16, 29)
         Me.tblTimeCorr.Name = "tblTimeCorr"
         Me.tblTimeCorr.RowCount = 4
-        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
+        Me.tblTimeCorr.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tblTimeCorr.Size = New System.Drawing.Size(1110, 160)
         Me.tblTimeCorr.TabIndex = 0
         '
@@ -1724,7 +1734,7 @@ Partial Class MainForm
         Me.pageConfigView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pageConfigView.Location = New System.Drawing.Point(0, 0)
         Me.pageConfigView.Name = "pageConfigView"
-        Me.pageConfigView.Padding = New System.Windows.Forms.Padding(16, 12, 16, 48)
+        Me.pageConfigView.Padding = New System.Windows.Forms.Padding(32, 24, 32, 48)
         Me.pageConfigView.Size = New System.Drawing.Size(1200, 688)
         Me.pageConfigView.TabIndex = 4
         '
@@ -1744,9 +1754,9 @@ Partial Class MainForm
         Me.btnRefreshConfig.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnRefreshConfig.Location = New System.Drawing.Point(0, 8)
         Me.btnRefreshConfig.Margin = New System.Windows.Forms.Padding(0, 8, 8, 0)
-        Me.btnRefreshConfig.MinimumSize = New System.Drawing.Size(90, 32)
+        Me.btnRefreshConfig.MinimumSize = New System.Drawing.Size(100, 36)
         Me.btnRefreshConfig.Name = "btnRefreshConfig"
-        Me.btnRefreshConfig.Size = New System.Drawing.Size(90, 32)
+        Me.btnRefreshConfig.Size = New System.Drawing.Size(100, 36)
         Me.btnRefreshConfig.TabIndex = 0
         '
         'cardConfigRaw
@@ -1755,7 +1765,7 @@ Partial Class MainForm
         Me.cardConfigRaw.Dock = System.Windows.Forms.DockStyle.Top
         Me.cardConfigRaw.Location = New System.Drawing.Point(16, 12)
         Me.cardConfigRaw.Name = "cardConfigRaw"
-        Me.cardConfigRaw.Padding = New System.Windows.Forms.Padding(16, 4, 16, 20)
+        Me.cardConfigRaw.Padding = New System.Windows.Forms.Padding(20, 12, 20, 24)
         Me.cardConfigRaw.Size = New System.Drawing.Size(1168, 462)
         Me.cardConfigRaw.TabIndex = 1
         Me.cardConfigRaw.TabStop = False
@@ -1792,7 +1802,7 @@ Partial Class MainForm
         Me.pnlTabStrip.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlTabStrip.Location = New System.Drawing.Point(0, 0)
         Me.pnlTabStrip.Name = "pnlTabStrip"
-        Me.pnlTabStrip.Size = New System.Drawing.Size(1200, 40)
+        Me.pnlTabStrip.Size = New System.Drawing.Size(1200, 48)
         Me.pnlTabStrip.TabIndex = 3
         '
         'cboLanguage
@@ -1801,7 +1811,7 @@ Partial Class MainForm
         Me.cboLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboLanguage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cboLanguage.Items.AddRange(New Object() {"English", "日本語", "Deutsch", "Español", "Français", "Italiano", "한국어", "Português (Brasil)", "Русский", "中文"})
-        Me.cboLanguage.Location = New System.Drawing.Point(1820, 6)
+        Me.cboLanguage.Location = New System.Drawing.Point(1820, 10)
         Me.cboLanguage.Name = "cboLanguage"
         Me.cboLanguage.Size = New System.Drawing.Size(150, 33)
         Me.cboLanguage.TabIndex = 0
@@ -1811,16 +1821,16 @@ Partial Class MainForm
         Me.pnlInfoBar.Controls.Add(Me.lblInfoStatus)
         Me.pnlInfoBar.Controls.Add(Me.lblInfoDetails)
         Me.pnlInfoBar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlInfoBar.Location = New System.Drawing.Point(0, 40)
+        Me.pnlInfoBar.Location = New System.Drawing.Point(0, 48)
         Me.pnlInfoBar.Name = "pnlInfoBar"
-        Me.pnlInfoBar.Size = New System.Drawing.Size(1200, 32)
+        Me.pnlInfoBar.Size = New System.Drawing.Size(1200, 36)
         Me.pnlInfoBar.TabIndex = 4
         '
         'lblInfoStatus
         '
         Me.lblInfoStatus.AutoSize = True
-        Me.lblInfoStatus.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
-        Me.lblInfoStatus.Location = New System.Drawing.Point(8, 0)
+        Me.lblInfoStatus.Font = New System.Drawing.Font("Segoe UI Semibold", 9.25!)
+        Me.lblInfoStatus.Location = New System.Drawing.Point(12, 0)
         Me.lblInfoStatus.Name = "lblInfoStatus"
         Me.lblInfoStatus.Size = New System.Drawing.Size(0, 25)
         Me.lblInfoStatus.TabIndex = 0
@@ -1832,7 +1842,7 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblInfoDetails.Location = New System.Drawing.Point(130, 0)
         Me.lblInfoDetails.Name = "lblInfoDetails"
-        Me.lblInfoDetails.Size = New System.Drawing.Size(1700, 32)
+        Me.lblInfoDetails.Size = New System.Drawing.Size(1700, 36)
         Me.lblInfoDetails.TabIndex = 1
         Me.lblInfoDetails.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -1843,7 +1853,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.pnlContent)
         Me.Controls.Add(Me.pnlInfoBar)
         Me.Controls.Add(Me.pnlTabStrip)
-        Me.Font = New System.Drawing.Font("Segoe UI", 9.25!)
+        Me.Font = New System.Drawing.Font("Segoe UI", 9.5!)
         Me.MinimumSize = New System.Drawing.Size(640, 480)
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
