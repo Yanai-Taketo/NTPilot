@@ -1,0 +1,126 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    name: Build (${{ matrix.platform }})
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        platform: [x64, x86, ARM64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Read version from vbproj
+        id: version
+        shell: pwsh
+        run: |
+          [xml]$proj = Get-Content "NTPilot.vbproj"
+          $ver = $proj.Project.PropertyGroup[0].Version
+          if (-not $ver) { $ver = "1.0.0" }
+          echo "VERSION=$ver" >> $env:GITHUB_ENV
+          echo "TAG=v$ver" >> $env:GITHUB_ENV
+          echo "version=$ver" >> $env:GITHUB_OUTPUT
+
+      - name: Restore
+        run: dotnet restore NTPilot.vbproj -p:Platform=${{ matrix.platform }}
+
+      - name: Build (${{ matrix.platform }})
+        run: >
+          dotnet build NTPilot.vbproj
+          -c Release
+          -p:Platform=${{ matrix.platform }}
+          --no-restore
+
+      - name: Rename output
+        shell: pwsh
+        run: |
+          $src = "bin\Release\net481\NTPilot.exe"
+          $dst = "NTPilot_${{ matrix.platform }}.exe"
+          if (Test-Path $src) {
+            Copy-Item $src $dst
+          } else {
+            # Try platform-specific subfolder
+            $alt = "bin\Release\net481\${{ matrix.platform }}\NTPilot.exe"
+            if (Test-Path $alt) { Copy-Item $alt $dst }
+          }
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NTPilot_${{ matrix.platform }}
+          path: NTPilot_${{ matrix.platform }}.exe
+
+      - name: Upload version metadata
+        if: matrix.platform == 'x64'
+        uses: actions/upload-artifact@v4
+        with:
+          name: version-meta
+          path: CHANGELOG.md
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: Download version metadata
+        uses: actions/download-artifact@v4
+        with:
+          name: version-meta
+
+      - name: Read version
+        id: version
+        shell: pwsh
+        run: |
+          # Re-read version from the downloaded CHANGELOG.md isn't reliable,
+          # so we embed it from the build job via artifact naming
+          $file = Get-ChildItem "NTPilot_x64.exe"
+          $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($file.FullName).FileVersion
+          if (-not $ver) { $ver = "1.0.0" }
+          $ver = $ver.TrimEnd('.0').TrimEnd('.')
+          echo "TAG=v$ver" >> $env:GITHUB_ENV
+
+      - name: Extract release notes from CHANGELOG.md
+        id: notes
+        shell: pwsh
+        run: |
+          $content = Get-Content "CHANGELOG.md" -Raw
+          # Match the first ## [x.y.z] section
+          if ($content -match '(?ms)^## \[\d+\.\d+\.\d+\][^\n]*\n(.*?)(?=^## \[|\z)') {
+            $notes = $Matches[1].Trim()
+          } else {
+            $notes = "See CHANGELOG.md for details."
+          }
+          $notes | Out-File "release_notes.txt" -Encoding utf8
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: ${{ env.TAG }}
+          body_path: release_notes.txt
+          draft: false
+          prerelease: false
+          files: |
+            NTPilot_x64.exe
+            NTPilot_x86.exe
+            NTPilot_ARM64.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
