@@ -45,13 +45,17 @@ jobs:
       - name: Rename output
         shell: pwsh
         run: |
-          $src = "bin\Release\net481\NTPilot.exe"
           $dst = "NTPilot_${{ matrix.platform }}_beta.exe"
-          if (Test-Path $src) {
-            Copy-Item $src $dst
-          } else {
-            $alt = "bin\Release\net481\${{ matrix.platform }}\NTPilot.exe"
-            if (Test-Path $alt) { Copy-Item $alt $dst }
+          $candidates = @(
+            "bin\Release\net481\NTPilot.exe",
+            "bin\Release\net481\${{ matrix.platform }}\NTPilot.exe",
+            "bin\${{ matrix.platform }}\Release\net481\NTPilot.exe"
+          )
+          foreach ($path in $candidates) {
+            if (Test-Path $path) {
+              Copy-Item $path $dst
+              break
+            }
           }
 
       - name: Upload artifact
