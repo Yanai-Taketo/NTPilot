@@ -89,7 +89,7 @@ jobs:
           $file = Get-ChildItem "NTPilot_x64_beta.exe"
           $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($file.FullName).FileVersion
           if (-not $ver) { $ver = "1.0.0" }
-          $ver = $ver.TrimEnd('.0').TrimEnd('.')
+          if ($ver -match '^\d+\.\d+\.\d+\.0$') { $ver = $ver -replace '\.0$', '' }
           echo "TAG=v$ver-beta" >> $env:GITHUB_ENV
 
       - name: Extract release notes from CHANGELOG.md
@@ -107,7 +107,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG }}
-          name: ${{ env.TAG }}
+          name: Beta ${{ env.TAG }}
           body_path: release_notes.txt
           draft: false
           prerelease: true
